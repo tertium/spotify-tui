@@ -401,11 +401,11 @@ where
         .map(|item| {
           let mut song_name = "".to_string();
           let id = item.clone().id.unwrap_or_else(|| "".to_string());
-          if currently_playing_id == id {
-            song_name += "▶ "
-          }
           if app.liked_song_ids_set.contains(&id) {
             song_name += &app.user_config.padded_liked_icon();
+          }
+          if currently_playing_id == id {
+            song_name += "▶ "
           }
 
           song_name += &item.name;
