@@ -1655,6 +1655,9 @@ fn draw_selectable_list<B, S>(
     .collect();
 
   //TODO
+  let selected_style = get_color(highlight_state, app.user_config.theme)
+    .add_modifier(if let (true, _) = highlight_state { Modifier::BOLD | Modifier::REVERSED }
+                                                else { Modifier::BOLD });
   let list = List::new(lst_items)
     .block(
       Block::default()
@@ -1666,9 +1669,7 @@ fn draw_selectable_list<B, S>(
         .border_style(get_color(highlight_state, app.user_config.theme)),
     )
     .style(Style::default().fg(app.user_config.theme.text))
-    .highlight_style(
-      get_color(highlight_state, app.user_config.theme).add_modifier(Modifier::BOLD),
-    );
+    .highlight_style(selected_style);
   f.render_stateful_widget(list, layout_chunk, &mut state);
 }
 
@@ -1760,8 +1761,9 @@ fn draw_table<B>(
 ) where
   B: Backend,
 {
-  let selected_style =
-    get_color(highlight_state, app.user_config.theme).add_modifier(Modifier::BOLD);
+  let selected_style = get_color(highlight_state, app.user_config.theme)
+    .add_modifier(if let (true, _) = highlight_state { Modifier::BOLD | Modifier::REVERSED }
+                                                else { Modifier::BOLD });
 
   let track_playing_index = app.current_playback_context.to_owned().and_then(|ctx| {
     ctx.item.and_then(|item| match item {
