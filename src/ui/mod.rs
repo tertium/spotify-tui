@@ -1411,11 +1411,7 @@ where
       .map(|album_page| TableItem {
         id: album_page.album.id.to_owned(),
         format: vec![
-          format!(
-            "{}{}",
-            app.user_config.padded_liked_icon(),
-            &album_page.album.name
-          ),
+          album_page.album.name.to_owned(),
           create_artist_string(&album_page.album.artists),
           album_page.album.release_date.to_owned(),
         ],
