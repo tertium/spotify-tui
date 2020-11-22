@@ -648,9 +648,14 @@ where
     id: TableId::Album,
     items: vec![
       TableHeaderItem {
+        text: "",
+        width: 0,
+        ..Default::default()
+      },
+      TableHeaderItem {
         id: ColumnId::Liked,
         text: "",
-        width: 2,
+        width: 1,
       },
       TableHeaderItem {
         text: "#",
@@ -695,6 +700,7 @@ where
               id: item.id.clone().unwrap_or_else(|| "".to_string()),
               format: vec![
                 "".to_string(),
+                "".to_string(),
                 item.track_number.to_string(),
                 item.name.to_owned(),
                 create_artist_string(&item.artists),
@@ -720,6 +726,7 @@ where
           .map(|item| TableItem {
             id: item.id.clone().unwrap_or_else(|| "".to_string()),
             format: vec![
+              "".to_string(),
               "".to_string(),
               item.track_number.to_string(),
               item.name.to_owned(),
@@ -760,9 +767,14 @@ where
     id: TableId::Song,
     items: vec![
       TableHeaderItem {
+        text: "",
+        width: 0,
+        ..Default::default()
+      },
+      TableHeaderItem {
         id: ColumnId::Liked,
         text: "",
-        width: 2,
+        width: 1,
       },
       TableHeaderItem {
         id: ColumnId::Title,
@@ -800,6 +812,7 @@ where
     .map(|item| TableItem {
       id: item.id.clone().unwrap_or_else(|| "".to_string()),
       format: vec![
+        "".to_string(),
         "".to_string(),
         item.name.to_owned(),
         create_artist_string(&item.artists),
@@ -839,9 +852,14 @@ where
     id: TableId::Song,
     items: vec![
       TableHeaderItem {
+        text: "",
+        width: 0,
+        ..Default::default()
+      },
+      TableHeaderItem {
         id: ColumnId::Liked,
         text: "",
-        width: 2,
+        width: 1,
       },
       TableHeaderItem {
         id: ColumnId::Title,
@@ -879,6 +897,7 @@ where
     .map(|item| TableItem {
       id: item.id.clone().unwrap_or_else(|| "".to_string()),
       format: vec![
+        "".to_string(),
         "".to_string(),
         item.name.to_owned(),
         create_artist_string(&item.artists),
@@ -1575,9 +1594,14 @@ where
     id: TableId::RecentlyPlayed,
     items: vec![
       TableHeaderItem {
+        text: "",
+        width: 0,
+        ..Default::default()
+      },
+      TableHeaderItem {
         id: ColumnId::Liked,
         text: "",
-        width: 2,
+        width: 1,
       },
       TableHeaderItem {
         id: ColumnId::Title,
@@ -1614,6 +1638,7 @@ where
       .map(|item| TableItem {
         id: item.track.id.clone().unwrap_or_else(|| "".to_string()),
         format: vec![
+          "".to_string(),
           "".to_string(),
           item.track.name.to_owned(),
           create_artist_string(&item.track.artists),
@@ -1809,7 +1834,7 @@ fn draw_table<B>(
         // Show this the liked icon if the song is liked
         if let Some(liked_idx) = header.get_index(ColumnId::Liked) {
           if app.liked_song_ids_set.contains(item.id.as_str()) {
-            formatted_row[liked_idx] = app.user_config.padded_liked_icon();
+            formatted_row[liked_idx] = app.user_config.behavior.liked_icon.clone();
           }
         }
       }
