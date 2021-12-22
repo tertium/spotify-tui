@@ -1069,7 +1069,7 @@ where
         .percent(perc)
         .label(Span::styled(
           &song_progress_label,
-          Style::default().fg(app.user_config.theme.playbar_progress_text),
+          Style::default(), // .fg(app.user_config.theme.playbar_progress_text),
         ));
       f.render_widget(song_progress, chunks[2]);
     }
